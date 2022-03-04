@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { postHabit } from '../apis/habits';
-import { habitsActionTypes, habitsReducer, initialState } from '../reducers/habits';
+import { habitActionTypes, habitReducer, initialState } from '../reducers/habit';
 
 import styled from 'styled-components';
 import { COLORS } from '../style_constants';
@@ -72,16 +72,16 @@ const SubmitButton = styled.input`
 
 export const Create = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [ state, dispatch] = useReducer(habitsReducer, initialState);
+  const [ state, dispatch] = useReducer(habitReducer, initialState);
 
   const onSubmit = (data) => {
-    dispatch({ type: habitsActionTypes.POSTING });
+    dispatch({ type: habitActionTypes.POSTING });
     postHabit({
       email: "test@test.com",
       title: data.title,
       detail: data.detail
     }).then(() => {
-      dispatch({ type: habitsActionTypes.POSTING_SUCCESS });
+      dispatch({ type: habitActionTypes.POSTING_SUCCESS });
       window.location.href = "/habitlog/index"
     });
   };

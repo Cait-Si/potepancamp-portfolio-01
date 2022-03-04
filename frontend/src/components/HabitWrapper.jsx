@@ -1,8 +1,10 @@
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { HabitDelete } from "../containers/HabitDelete";
 
 import { COLORS, FONT_SIZE } from "../style_constants";
-import { DeleteIcon, EditIcon } from "./Icons";
+import { IconButton, EditIcon } from "./Icons";
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,8 +60,12 @@ export const HabitWrapper = ({
       <TitleWrapper>
         <MainText>{habit.title}</MainText>
         <div>
-          <EditIcon />
-          <DeleteIcon />
+          <Link to={`/habitlog/${habit.id}/edit`}>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Link>
+          <HabitDelete habitId={habit.id} />
         </div>
       </TitleWrapper>
       <DetailWrapper>

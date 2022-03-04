@@ -34,7 +34,7 @@ module Api
 
       def update
         habit = Habit.find(params[:id])
-        if habit.update(title: params[:title])
+        if habit.update(title: params[:title], detail: params[:detail])
           render json: {
             habit: habit
           }, status: :created
