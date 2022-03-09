@@ -95,7 +95,8 @@ export const Edit = ({match}) => {
       habitId: match.params.habitId,
       email: "test@test.com",
       title: data.title,
-      detail: data.detail
+      detail: data.detail,
+      count: state.habit.count
     }).then(() => {
       dispatch({ type: habitActionTypes.PUTTING_SUCCESS });
       window.location.href = "/habitlog/index"

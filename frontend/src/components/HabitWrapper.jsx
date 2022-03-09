@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Count } from "../containers/Count";
 import { HabitDelete } from "../containers/HabitDelete";
 
 import { COLORS, FONT_SIZE } from "../style_constants";
@@ -32,8 +33,9 @@ const DetailWrapper = styled.div`
 `;
 
 const CountWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   margin-top: 15px;
-  text-align: center;
 `;
 
 const MainText = styled.div`
@@ -47,10 +49,7 @@ const SubText = styled.div`
   font-size: ${FONT_SIZE.BODY2};
 `;
 
-const CountText = styled.div`
-  color: ${COLORS.MAIN};
-  font-size: ${FONT_SIZE.COUNT};
-`
+
 
 export const HabitWrapper = ({
   habit
@@ -61,7 +60,7 @@ export const HabitWrapper = ({
         <MainText>{habit.title}</MainText>
         <div>
           <Link to={`/habitlog/${habit.id}/edit`}>
-            <IconButton>
+            <IconButton size="small">
               <EditIcon />
             </IconButton>
           </Link>
@@ -72,7 +71,7 @@ export const HabitWrapper = ({
         <SubText>{habit.detail}</SubText>
       </DetailWrapper>
       <CountWrapper>
-        <CountText>{habit.count}</CountText>
+        <Count habit={habit} />
       </CountWrapper>
     </HabitAll>
   </Wrapper>

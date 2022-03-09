@@ -35,7 +35,8 @@ export const putHabit = (params) => {
     {
       email: params.email,
       title: params.title,
-      detail: params.detail
+      detail: params.detail,
+      count: params.count
     }
   ).then(res => {
     return res.data
@@ -49,4 +50,5 @@ export const deleteHabit = (params) => {
   .then(res =>{
     return res.data
   })
-}
+  .catch((e) => console.error(e));
+};

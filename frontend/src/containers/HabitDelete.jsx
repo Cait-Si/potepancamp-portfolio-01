@@ -14,7 +14,7 @@ export const HabitDelete = ({
   }
 
   return (
-    <IconButton onClick={onClick}>
+    <IconButton onClick={onClick} size="small" >
       <DeleteIcon />
     </IconButton>
   );
