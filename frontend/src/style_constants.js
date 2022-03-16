@@ -2,7 +2,9 @@ export const COLORS = {
   MAIN: '#00B050',
   BORDER: '#e2e2e2',
   SUB_TEXT: '#545454',
-  SUB_BUTTON: '#eeeeee'
+  SUB_BUTTON: '#eeeeee',
+  COUNT_BUTTON: '#cccccc;',
+  COUNT_BUTTON_BOTTOM: '#aaaaaa'
 }
 
 export const FONT_SIZE = {

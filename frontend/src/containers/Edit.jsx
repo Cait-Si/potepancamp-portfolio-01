@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { fetchHabit, putHabit } from '../apis/habits';
 import { habitActionTypes, habitReducer, initialState } from '../reducers/habit';
@@ -73,20 +73,24 @@ const SubmitButton = styled.input`
 export const Edit = ({match}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [ state, dispatch] = useReducer(habitReducer, initialState);
+  const [ title, setTitle ] = useState("");
+  const [ detail, setDetail ] = useState("");
 
   useEffect(() => {
     dispatch({ type: habitActionTypes.FETCHING });
     fetchHabit({
       habitId: match.params.habitId
     })
-    .then((data) =>
+    .then((data) =>{
       dispatch({
         type: habitActionTypes.FETCH_SUCCESS,
         payload: {
           habit: data.habit
         }
-      })
-    )
+      });
+      setTitle(data.habit.title);
+      setDetail(data.habit.detail);
+    })
   }, []);
 
   const onSubmit = (data) => {
@@ -109,13 +113,13 @@ export const Edit = ({match}) => {
         <InputTextWrapper>
           <FormLabel>
             <LabelText>{ LABEL.TITLE }</LabelText>
-            <InputText type="text" {...register("title", {required: true})} placeholder={state.habit.title} />
+            <InputText type="text" {...register("title", {required: true})} value={title} onChange={(e)=>setTitle(e.target.value)} />
           </FormLabel>
         </InputTextWrapper>
         <TextareaWrapper>
           <FormLabel>
             <LabelText>{ LABEL.DETAIl }</LabelText>
-            <Textarea cols="40" rows="4" {...register("detail", {required: true})} placeholder={state.habit.detail} />
+            <Textarea cols="40" rows="4" {...register("detail", {required: true})} value={detail} onChange={(e)=>setDetail(e.target.value)} />
           </FormLabel>
         </TextareaWrapper>
         {errors.detail && <ErrorText>This field</ErrorText>}

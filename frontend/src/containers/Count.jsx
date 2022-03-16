@@ -13,13 +13,13 @@ const CountText = styled.div`
 const CountButton = styled.button`
   border-radius: 50%;
   width: 70px;
-  background-color: #cccccc;
-  border-color: #cccccc;
-  border-bottom: 4px solid #aaaaaa;
+  background-color: ${COLORS.COUNT_BUTTON};
+  border-color: ${COLORS.COUNT_BUTTON};
+  border-bottom: 4px solid ${COLORS.COUNT_BUTTON_BOTTOM};
   &:hover {
     margin-top: 2px;
-    background: #cccccc;
-    border-bottom: 2px solid #aaaaaa; }
+    background: ${COLORS.COUNT_BUTTON};
+    border-bottom: 2px solid ${COLORS.COUNT_BUTTON_BOTTOM}; }
 `;
 
 export const Count = ({habit}) => {
