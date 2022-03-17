@@ -1,6 +1,6 @@
 export const COLORS = {
   MAIN: '#00B050',
-  BORDER: '#e2e2e2',
+  BORDER: '#FFA500',
   SUB_TEXT: '#545454',
   SUB_BUTTON: '#eeeeee',
   COUNT_BUTTON: '#cccccc;',

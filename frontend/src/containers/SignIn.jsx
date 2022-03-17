@@ -79,7 +79,6 @@ export const SignIn = () => {
     try {
       const res = await signIn(params);
       if (res.status === 200) {
-        console.log(res.headers["access-token"]);
         Cookies.set("_access_token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);

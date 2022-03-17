@@ -19,7 +19,7 @@ const HabitsContentsList = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin-bottom: 50px;
+  margin: 50px 0;
 `;
 
 const ItemWrapper = styled.div`

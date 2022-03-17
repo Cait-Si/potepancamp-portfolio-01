@@ -6,6 +6,7 @@ import { habitActionTypes, habitReducer, initialState } from '../reducers/habit'
 import styled from 'styled-components';
 import { COLORS } from '../style_constants';
 import { BUTTON_VALUE, LABEL } from '../constants';
+import Cookies from 'js-cookie';
 
 const Form = styled.form`
   width: 500px;
@@ -77,7 +78,7 @@ export const Create = () => {
   const onSubmit = (data) => {
     dispatch({ type: habitActionTypes.POSTING });
     postHabit({
-      email: "test@test.com",
+      email: Cookies.get("_uid"),
       title: data.title,
       detail: data.detail
     }).then(() => {

@@ -1,5 +1,6 @@
 import { IconButton } from '@material-ui/core';
 import { useContext } from 'react';
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { signOut } from '../apis/auth';
@@ -35,13 +36,16 @@ const Button = styled(IconButton)`
 
 
 export const Header = () => {
-  const {IsSignedIn} = useContext(AuthContext)
+  const {IsSignedIn, setIsSignedIn} = useContext(AuthContext)
   let button;
 
   const handleSignOutSubmit = async (e) => {
     try {
       signOut();
-      window.location.href = "/habitlog"
+      Cookies.remove("_access_token")
+      Cookies.remove("_client")
+      Cookies.remove("_uid")
+      setIsSignedIn(false)
     } catch (e) {
       console.log(e);
     }

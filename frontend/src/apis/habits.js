@@ -1,8 +1,15 @@
-import axios from 'axios'
+import Cookies from 'js-cookie';
+import { client } from './client';
 import { indexOrCreate, showOrEditOrDelete } from '../urls'
 
 export const fetchHabits = () => {
-  return axios.get(indexOrCreate)
+  return client.get(indexOrCreate, {
+    headers: {
+      "access-token": Cookies.get("_access_token"),
+      client: Cookies.get("_client"),
+      uid: Cookies.get("_uid"),
+    },
+  })
     .then(res => {
       return res.data
     })
@@ -10,7 +17,7 @@ export const fetchHabits = () => {
 };
 
 export const postHabit = (params) => {
-  return axios.post(indexOrCreate,
+  return client.post(indexOrCreate,
     {
       email: params.email,
       title: params.title,
@@ -23,7 +30,7 @@ export const postHabit = (params) => {
 };
 
 export const fetchHabit = (params) => {
-  return axios.get(showOrEditOrDelete(params.habitId))
+  return client.get(showOrEditOrDelete(params.habitId))
   .then(res => {
     return res.data
   })
@@ -31,7 +38,7 @@ export const fetchHabit = (params) => {
 };
 
 export const putHabit = (params) => {
-  return axios.put(showOrEditOrDelete(params.habitId),
+  return client.put(showOrEditOrDelete(params.habitId),
     {
       email: params.email,
       title: params.title,
@@ -46,7 +53,7 @@ export const putHabit = (params) => {
 
 export const deleteHabit = (params) => {
   console.log(params.habitId)
-  return axios.delete(showOrEditOrDelete(params.habitId))
+  return client.delete(showOrEditOrDelete(params.habitId))
   .then(res =>{
     return res.data
   })

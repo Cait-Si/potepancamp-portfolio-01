@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { signUp } from "../apis/auth";
+import { signUp, signIn } from "../apis/auth";
 import { BUTTON_VALUE, LABEL } from "../constants";
 import { COLORS } from "../style_constants";
+import { AuthContext } from "../App";
 
 const Form = styled.form`
   width: 500px;
@@ -62,6 +64,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const {setIsSignedIn, setCurrentUser} = useContext(AuthContext)
 
 
   const generateParams = () => {
@@ -81,6 +84,17 @@ export const SignUp = () => {
       const res = await signUp(params);
       console.log(res);
       alert("confirm email");
+      const respons = await signIn(params);
+      if (respons.status === 200) {
+        Cookies.set("_access_token", respons.headers["access-token"]);
+        Cookies.set("_client", respons.headers["client"]);
+        Cookies.set("_uid", respons.headers["uid"]);
+
+        setIsSignedIn(true);
+        setCurrentUser(respons.data.data);
+
+        window.location.href = "/habitlog/index"
+      }
     } catch (e) {
       console.log(e);
     }
@@ -90,25 +104,25 @@ export const SignUp = () => {
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.NAME}</LabelText>
-          <InputText type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <InputText type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.EMAIL}</LabelText>
-          <InputText type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <InputText type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.PASSWORD}</LabelText>
-          <InputText type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <InputText type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.PASSWORD_CONFIRM}</LabelText>
-          <InputText type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+          <InputText type="password" id="password_confirmation" name="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <SubmitButtonWrapper>
