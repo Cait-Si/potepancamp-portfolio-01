@@ -5,8 +5,9 @@ import { habitActionTypes, habitReducer, initialState } from '../reducers/habit'
 
 import styled from 'styled-components';
 import { COLORS } from '../style_constants';
-import { BUTTON_VALUE, LABEL } from '../constants';
+import { BUTTON_VALUE, ERROR_TEXT, LABEL } from '../constants';
 import Cookies from 'js-cookie';
+import { ErrorText } from '../components/ErrorText';
 
 const Form = styled.form`
   width: 500px;
@@ -45,12 +46,6 @@ const TextareaWrapper = styled.div`
 
 const Textarea = styled.textarea`
   resize: none;
-`
-
-const ErrorText = styled.p`
-  color: red;
-  text-align: center;
-  margin: 0px;
 `;
 
 const SubmitButtonWrapper = styled.div`
@@ -93,16 +88,17 @@ export const Create = () => {
         <InputTextWrapper>
           <FormLabel>
             <LabelText>{ LABEL.TITLE }</LabelText>
+            {errors.title && <ErrorText text={ERROR_TEXT.REQUIRED} />}
             <InputText type="text" {...register("title", {required: true})} />
           </FormLabel>
         </InputTextWrapper>
         <TextareaWrapper>
           <FormLabel>
             <LabelText>{ LABEL.DETAIl }</LabelText>
+            {errors.detail && <ErrorText text={ERROR_TEXT.REQUIRED} />}
             <Textarea cols="40" rows="4" {...register("detail", {required: true})} />
           </FormLabel>
         </TextareaWrapper>
-        {errors.detail && <ErrorText>This field</ErrorText>}
         <SubmitButtonWrapper>
           <SubmitButton type="submit" value={BUTTON_VALUE.SUBMIT}/>
         </SubmitButtonWrapper>

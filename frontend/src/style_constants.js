@@ -4,7 +4,8 @@ export const COLORS = {
   SUB_TEXT: '#545454',
   SUB_BUTTON: '#eeeeee',
   COUNT_BUTTON: '#cccccc;',
-  COUNT_BUTTON_BOTTOM: '#aaaaaa'
+  COUNT_BUTTON_BOTTOM: '#aaaaaa',
+  ERROR_TEXT: '#DC143C'
 }
 
 export const FONT_SIZE = {

@@ -20,3 +20,7 @@ export const BUTTON_VALUE = {
   SIGNUP: '新規登録',
   INDEX: '習慣一覧'
 };
+
+export const ERROR_TEXT = {
+  REQUIRED: '必須',
+}

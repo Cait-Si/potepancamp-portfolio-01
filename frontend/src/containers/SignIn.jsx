@@ -1,11 +1,13 @@
 import Cookies from "js-cookie";
 import styled from "styled-components";
 import { useContext, useState } from "react"
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { signIn } from "../apis/auth";
 import { AuthContext } from "../App";
 import { COLORS } from "../style_constants";
-import { BUTTON_VALUE, LABEL } from "../constants";
+import { BUTTON_VALUE, ERROR_TEXT, LABEL } from "../constants";
+import { ErrorText } from "../components/ErrorText";
 
 const Form = styled.form`
   width: 500px;
@@ -57,10 +59,11 @@ const SubmitButton = styled.button`
 const LinkWrapper = styled.div`
   text-align: center;
   margin-top: 10px;
-`
+`;
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
@@ -72,8 +75,7 @@ export const SignIn = () => {
     return signInParams;
   }
 
-  const handleSignInSubmit = async (e) => {
-    e.preventDefault();
+  const handleSignInSubmit = async () => {
     const params = generteParams();
 
     try {
@@ -95,21 +97,23 @@ export const SignIn = () => {
 
   return (
     <>
-      <Form>
+      <Form onSubmit={handleSubmit(handleSignInSubmit)}>
         <InputTextWrapper>
           <FormLabel>
             <LabelText>{LABEL.EMAIL}</LabelText>
-            <InputText type="email" name="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+            {errors.email && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+            <InputText type="email" {...register("email", {required: true})} value={email} onChange={(e)=>setEmail(e.target.value)} />
           </FormLabel>
         </InputTextWrapper>
         <InputTextWrapper>
           <FormLabel>
             <LabelText>{LABEL.PASSWORD}</LabelText>
-            <InputText type="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+            {errors.password && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+            <InputText type="password"{...register("password", {required: true})} value={password} onChange={(e)=>setPassword(e.target.value)} />
           </FormLabel>
         </InputTextWrapper>
         <SubmitButtonWrapper>
-          <SubmitButton type="submit" onClick={(e) => handleSignInSubmit(e)} >{BUTTON_VALUE.LOGIN}</SubmitButton>
+          <SubmitButton type="submit" >{BUTTON_VALUE.LOGIN}</SubmitButton>
         </SubmitButtonWrapper>
         <LinkWrapper>
           <Link to="/signup">新規登録へ</Link>

@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { signUp, signIn } from "../apis/auth";
-import { BUTTON_VALUE, LABEL } from "../constants";
+import { BUTTON_VALUE, ERROR_TEXT, LABEL } from "../constants";
 import { COLORS } from "../style_constants";
 import { AuthContext } from "../App";
+import { ErrorText } from "../components/ErrorText";
 
 const Form = styled.form`
   width: 500px;
@@ -60,6 +62,7 @@ const LinkWrapper = styled.div`
 `
 
 export const SignUp = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,8 +80,7 @@ export const SignUp = () => {
     return signUpParams;
   };
 
-  const handleSignUpSubmit = async (e) => {
-    e.preventDefault();
+  const handleSignUpSubmit = async () => {
     const params = generateParams();
     try {
       const res = await signUp(params);
@@ -100,33 +102,37 @@ export const SignUp = () => {
     }
   };
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(handleSignUpSubmit)}>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.NAME}</LabelText>
-          <InputText type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+          {errors.name && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+          <InputText type="text" {...register("name", {required: true})} value={name} onChange={(e) => setName(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.EMAIL}</LabelText>
-          <InputText type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          {errors.email && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+          <InputText type="email" {...register("email", {required: true})} value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.PASSWORD}</LabelText>
-          <InputText type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          {errors.password && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+          <InputText type="password" {...register("password", {required: true})} value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <InputTextWrapper>
         <FormLabel>
           <LabelText>{LABEL.PASSWORD_CONFIRM}</LabelText>
-          <InputText type="password" id="password_confirmation" name="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+          {errors.password_confirmation && <ErrorText text={ERROR_TEXT.REQUIRED} />}
+          <InputText type="password" {...register("password_confirmation", {required: true})} value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
         </FormLabel>
       </InputTextWrapper>
       <SubmitButtonWrapper>
-        <SubmitButton type="submit" onClick={(e) => handleSignUpSubmit(e)}>
+        <SubmitButton type="submit">
           {BUTTON_VALUE.SUBMIT}
         </SubmitButton>
       </SubmitButtonWrapper>
