@@ -43,7 +43,7 @@ export const Home = () => {
         <HomeText>習慣とは、習慣が変われば人生が変わるとも言われる程大切なものです。</HomeText>
         <HomeText>しかし、新しい習慣を定着させることは非常に難しく三日坊主になりやすいです。</HomeText>
         <HomeText>定着が難しい習慣化もこの新習慣記録で見える化することで達成感が感じられ続けやすくなります。</HomeText>
-        <HomeText>ぜひ、試してみてください！！</HomeText>
+        <HomeText>ぜひ、試してみてください!!</HomeText>
       </HomeTextWrapper>
       <HomeImegeWrapper>
         <div>
@@ -53,7 +53,7 @@ export const Home = () => {
         <TextWrapper>
           <ImageText>※</ImageText>
           <HomeText>習慣とその内容を登録します。</HomeText>
-          <HomeText>その後は登録した新習慣を実施できたら、できたボタンを押して回数を増やしていきます！</HomeText>
+          <HomeText>その後は登録した新習慣を実施できたら、できたボタンを押して回数を増やしていきます!</HomeText>
         </TextWrapper>
       </HomeImegeWrapper>
     </HomeWrapper>
