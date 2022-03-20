@@ -61,13 +61,14 @@ export const Index = () => {
   useEffect(() => {
     dispatch({ type: habitsActionTypes.FETCHING });
     fetchHabits()
-    .then((data) =>
+    .then((data) =>{
       dispatch({
         type: habitsActionTypes.FETCH_SUCCESS,
         payload: {
           habits: data.habits
         }
       })
+    console.log(data)}
     )
   }, []);
   return (
